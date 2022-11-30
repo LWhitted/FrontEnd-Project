@@ -11,8 +11,8 @@ getCocktailRecipe();
 
 function displayDrinkName(drink){
     console.log(drink)
-    const drinkHeader = document.getElementById("drinkRecipe");
+    const drinkHeader = document.getElementById("drink-header");
     console.log(drinkHeader)
-    document.getElementById("drinkRecipe").innerHTML = "word";
+    drinkHeader.innerText = `${drink}`;
 }
 //not sure why line 14 is not working properly.
