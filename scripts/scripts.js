@@ -1,3 +1,8 @@
+document.addEventListener('DOMContentLoaded', function () {
+    getMealRecipe();
+    getCocktailRecipe();
+});
+
 async function getCocktailRecipe() {
     const response = await fetch("https://thecocktaildb.com/api/json/v1/1/random.php")
     const data = await response.json()
@@ -18,15 +23,9 @@ function displayDrinkName(drink){
 async function getMealRecipe() {
     const response = await fetch("https://themealdb.com/api/json/v1/1/search.php?s=pasta")
     const data = await response.json()
-    console.log(data.meals[0])
-    const mealName = data.meals[0].strMeal
     
-    displayMealName(mealName);
-    displayImage(data.meals[0].strMealThumb);
-
     let mealIngredients = [];
     let mealMeasurements = [];
-
     const dataArray = Object.keys(data.meals[0]);
     const ingredients = dataArray.filter(word => word.includes("Ingredient"));
     const measurements = dataArray.filter(word => word.includes("Measure"));
@@ -37,7 +36,11 @@ async function getMealRecipe() {
             mealMeasurements.push(data.meals[0][measurements[i]])
         }
     }
+
+    displayMealName(data.meals[0].strMeal);
+    displayImage(data.meals[0].strMealThumb);
     displayIngredients(mealMeasurements, mealIngredients);
+    displayInstructions(data.meals[0].strInstructions);
 }
 
 function displayMealName(mealName) {
@@ -60,6 +63,16 @@ function displayIngredients(measurements, ingredients) {
     
 }
 
-getMealRecipe();
-getCocktailRecipe();
+function displayInstructions(instructions) {
+    const list = instructions.split(/(?=[A-Z])/);
+    let listHtml = [];
+    for (i = 1; i < list.length; i++){
+        listHtml.push(`<li>` + `${list[i]}` + `</li>`)
+    }
+    const listContainer = document.getElementById("meal-list-instructions");
+    listContainer.innerHTML = listHtml.join("")
+
+}
+
+
 
