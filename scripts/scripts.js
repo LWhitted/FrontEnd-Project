@@ -53,19 +53,12 @@ function displayImage(imgSrc) {
 function displayIngredients(measurements, ingredients) {
     let bulletHtml = [];
     for (i = 1; i < ingredients.length; i++){
-        bulletHtml.push(`${measurements[i]}` + ` ${ingredients[i].toLowerCase() }`)
+        bulletHtml.push(`<li>` + `${measurements[i]}` + ` ${ingredients[i].toLowerCase() }`+ `</li>`)
     }
-    console.log(bulletHtml)
-    // const list = document.getElementById("meal-list")
-    // bulletHtml.forEach((item) => {
-    //     console.log(item)
-    //     const li = document.createElement("li");
-    //     li.innerText = `${item}`;
-    //     list.appendChild;
-    // })
+    const list = document.getElementById("meal-list")
+    list.innerHTML = bulletHtml.join("");
+    
 }
-// Ive got the string that I want to put into each bullet point but 
-// the code I have commented out up there isnt appending to the dom 
 
 getMealRecipe();
 getCocktailRecipe();
