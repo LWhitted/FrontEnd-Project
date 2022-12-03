@@ -1,0 +1,56 @@
+body {
+    background-color: blanchedalmond;
+    font-family: 'Luckiest Guy', cursive;
+}
+
+.search-bar {
+    font-size: 25px;
+    text-align: center;
+}
+
+h1 {
+    font-weight: bolder;
+    font-size: 70px;
+    text-align: center;
+    margin: 30px;
+}
+
+#chef-img img {
+    width: 350px;
+    border-radius: 50%;
+}
+
+#chef-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#bio {
+    margin: 30px;
+    font-size: 25px;
+    text-align: center;
+}
+
+#break {
+    padding: 20px;
+    text-align: center;
+}
+
+.carousel {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h5 {
+    background-color: rgb(0, 0, 0);
+    font-size: 25px;
+    opacity: 0.7;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+} 
+  
