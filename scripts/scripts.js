@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 async function getCocktailRecipe() {
-    console.log("getting cocktail recipe")
     const response = await fetch("https://thecocktaildb.com/api/json/v1/1/random.php")
     const data = await response.json()
 
