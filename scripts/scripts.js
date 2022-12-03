@@ -1,20 +1,21 @@
+document.addEventListener('DOMContentLoaded', function () {
+    getMealRecipe();
+    getCocktailRecipe();
+});
 
 
 async function getCocktailRecipe() {
     const response = await fetch("https://thecocktaildb.com/api/json/v1/1/random.php")
     const data = await response.json()
-    console.log(data.drinks[0])
+
     let drinkName = data.drinks[0].strDrink;
 
     // IMAGES OF DRINKS
     let drinkImage = data.drinks[0].strDrinkThumb
 
-    console.log("cheese",drinkImage)
-    
-
     //STRING INGREDIENTS OF DRINKS
     const array0fIngredients = Object.keys(data.drinks[0]) //grabs all the properties
-    console.log("cats are cool",array0fIngredients)
+
     const arrayIngredients = array0fIngredients.filter(word => word.includes("Ingredient"))
         let drinkIngredients = [];//array to push ingredients to
         for (i=0; i <= arrayIngredients.length; i++){
@@ -22,9 +23,6 @@ async function getCocktailRecipe() {
             drinkIngredients.push(data.drinks[0][arrayIngredients[i]])
         }
         }
-
-   console.log("final list",drinkIngredients)
-
 
    //STRING INSTRUCTIONS/STEPS FOR THE ALCHOHOL
     const arrayofSteps = Object.keys(data.drinks[0]) //grabs all the properties
@@ -46,23 +44,13 @@ async function getCocktailRecipe() {
         }
         }
 
-   
-
-    console.log("string of measurements", measureSteps)
-    console.log("string of steps", alcoholSteps) 
-
 displayDrinkName(drinkName);
 displayDrinkSteps(alcoholSteps);
 displayDrinkRecipe(drinkIngredients, measureSteps);
 displayDrinkImages(drinkImage)
-  
-    
 }
 //WHERE GETCOCKTAIL RECIPE FUNCTION ENDS//
 
-  
-
- 
   ///DISPLAYING INGREDIENTS AND MEASUREMENTS FUNCTION///
 function displayDrinkRecipe(drinkIngredients, measureSteps) {
     const drinklistElement = document.getElementById("drink-list")
@@ -74,7 +62,6 @@ function displayDrinkRecipe(drinkIngredients, measureSteps) {
     drinklistElement.innerHTML = listArray.join('')
 }
 
-
 function displayMeasurements(measureSteps) {
     const measurementList = document.getElementById("measurements")
     let listArray = [];
@@ -84,9 +71,6 @@ function displayMeasurements(measureSteps) {
     measurementList.innerHTML = listArray.join('')
 }
 
-
-
-
 //DISPLAYING INSTRUCTIONS HERE
 function displayDrinkSteps(alcoholSteps) {
     const drinkstepsElement = document.getElementById("drink-instructions")
@@ -95,14 +79,12 @@ function displayDrinkSteps(alcoholSteps) {
         for (i=0; i < getInstructions.length; i++) {
             if (getInstructions[i]) {
         listArray.push (`<li>${getInstructions[i]}</li>`)
-        console.log("we are in the loop", getInstructions[i])
         }} 
     drinkstepsElement.innerHTML = listArray.join("")
 }
 
 //DISPLAYING DRINK NAME
 function displayDrinkName(drink){
-    console.log(drink)
     const drinkHeader = document.getElementById("drink-header");
     drinkHeader.innerText = `${drink}`;
 }
@@ -114,16 +96,29 @@ function displayDrinkImages(drinkImage) {
     imgTag.src = `${drinkImage}`
 }
 
+//MEAL RECIPE FUNCTIONS
 
 async function getMealRecipe() {
     const response = await fetch("https://themealdb.com/api/json/v1/1/search.php?s=pasta")
     const data = await response.json()
-    console.log(data.meals[0])
-    const mealName = data.meals[0].strMeal
-    console.log(mealName)
     
-    displayMealName(mealName);
-    
+    let mealIngredients = [];
+    let mealMeasurements = [];
+    const dataArray = Object.keys(data.meals[0]);
+    const ingredients = dataArray.filter(word => word.includes("Ingredient"));
+    const measurements = dataArray.filter(word => word.includes("Measure"));
+
+    for (i = 0; i <= ingredients.length; i++){
+        if (data.meals[0][ingredients[i]]){
+            mealIngredients.push(data.meals[0][ingredients[i]])
+            mealMeasurements.push(data.meals[0][measurements[i]])
+        }
+    }
+
+    displayMealName(data.meals[0].strMeal);
+    displayImage(data.meals[0].strMealThumb);
+    displayIngredients(mealMeasurements, mealIngredients);
+    displayInstructions(data.meals[0].strInstructions);
 }
 
 function displayMealName(mealName) {
@@ -131,5 +126,31 @@ function displayMealName(mealName) {
     mealHeader.innerHTML = `${mealName}`;
 }
 
-getMealRecipe();
-getCocktailRecipe();
+function displayImage(imgSrc) {
+    const imgTag = document.getElementById("meal-img")
+    imgTag.src = `${imgSrc}`;
+}
+
+function displayIngredients(measurements, ingredients) {
+    let bulletHtml = [];
+    for (i = 1; i < ingredients.length; i++){
+        bulletHtml.push(`<li>` + `${measurements[i]}` + ` ${ingredients[i].toLowerCase() }`+ `</li>`)
+    }
+    const list = document.getElementById("meal-list")
+    list.innerHTML = bulletHtml.join("");
+    
+}
+
+function displayInstructions(instructions) {
+    const list = instructions.split(/(?=[A-Z])/);
+    let listHtml = [];
+    for (i = 1; i < list.length; i++){
+        listHtml.push(`<li>` + `${list[i]}` + `</li>`)
+    }
+    const listContainer = document.getElementById("meal-list-instructions");
+    listContainer.innerHTML = listHtml.join("")
+
+}
+
+
+
