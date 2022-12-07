@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function getMealRecipe() {
     const keyword = encodeURIComponent(localStorage.getItem('searchTerm'));
-    
     const response = await fetch(`https://themealdb.com/api/json/v1/1/search.php?s=${keyword}`)
     const data = await response.json()
     let mealIngredients = [];
@@ -53,10 +52,12 @@ function displayIngredients(measurements, ingredients) {
 }
 
 function displayInstructions(instructions) {
-    const list = instructions.split(/(?=[A-Z])/);
+    const list = instructions.split(".");
     let listHtml = [];
     for (i = 1; i < list.length; i++) {
-        listHtml.push(`<li>` + `${list[i]}` + `</li>`)
+        if (list[i]) {
+            listHtml.push(`<li>` + `${list[i]}` + `</li>`)
+        }
     }
     const listContainer = document.getElementById("meal-list-instructions");
     listContainer.innerHTML = listHtml.join("")
