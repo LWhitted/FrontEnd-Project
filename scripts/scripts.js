@@ -4,6 +4,68 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+//MEAL RECIPE FUNCTIONS
+
+async function getMealRecipe() {
+    const keyword = localStorage.getItem('searchTerm');
+    console.log(keyword)
+    const response = await fetch(`https://themealdb.com/api/json/v1/1/search.php?s=${keyword}`)
+    const data = await response.json()
+
+    let mealIngredients = [];
+    let mealMeasurements = [];
+    const dataArray = Object.keys(data.meals[0]);
+    const ingredients = dataArray.filter(word => word.includes("Ingredient"));
+    const measurements = dataArray.filter(word => word.includes("Measure"));
+
+    for (i = 0; i <= ingredients.length; i++) {
+        if (data.meals[0][ingredients[i]]) {
+            mealIngredients.push(data.meals[0][ingredients[i]])
+            mealMeasurements.push(data.meals[0][measurements[i]])
+        }
+    }
+
+    displayMealName(data.meals[0].strMeal);
+    displayImage(data.meals[0].strMealThumb);
+    displayIngredients(mealMeasurements, mealIngredients);
+    displayInstructions(data.meals[0].strInstructions);
+}
+
+function displayMealName(mealName) {
+    const mealHeader = document.getElementById("meal-header");
+    mealHeader.innerHTML = `${mealName}`;
+}
+
+function displayImage(imgSrc) {
+    const imgTag = document.getElementById("meal-img")
+    imgTag.src = `${imgSrc}`;
+}
+
+function displayIngredients(measurements, ingredients) {
+    let bulletHtml = [];
+    for (i = 1; i < ingredients.length; i++) {
+        bulletHtml.push(`<li>` + `${measurements[i]}` + ` ${ingredients[i].toLowerCase()}` + `</li>`)
+    }
+    const list = document.getElementById("meal-list")
+    list.innerHTML = bulletHtml.join("");
+
+}
+
+function displayInstructions(instructions) {
+    const list = instructions.split(".");
+    let listHtml = [];
+    for (i = 1; i < list.length; i++) {
+        if (list[i]) {
+            listHtml.push(`<li>` + `${list[i]}` + `</li>`)
+        }
+    }
+    const listContainer = document.getElementById("meal-list-instructions");
+    listContainer.innerHTML = listHtml.join("")
+
+}
+
+
 async function getCocktailRecipe() {
     const response = await fetch("https://thecocktaildb.com/api/json/v1/1/random.php")
     const data = await response.json()
@@ -106,62 +168,3 @@ function displayDrinkImages(drinkImage) {
     const imgTag = document.getElementById("drink-img")
     imgTag.src = `${drinkImage}`
 }
-
-//MEAL RECIPE FUNCTIONS
-
-async function getMealRecipe() {
-    const response = await fetch("https://themealdb.com/api/json/v1/1/search.php?s=pasta")
-    const data = await response.json()
-    
-    let mealIngredients = [];
-    let mealMeasurements = [];
-    const dataArray = Object.keys(data.meals[0]);
-    const ingredients = dataArray.filter(word => word.includes("Ingredient"));
-    const measurements = dataArray.filter(word => word.includes("Measure"));
-
-    for (i = 0; i <= ingredients.length; i++){
-        if (data.meals[0][ingredients[i]]){
-            mealIngredients.push(data.meals[0][ingredients[i]])
-            mealMeasurements.push(data.meals[0][measurements[i]])
-        }
-    }
-
-    displayMealName(data.meals[0].strMeal);
-    displayImage(data.meals[0].strMealThumb);
-    displayIngredients(mealMeasurements, mealIngredients);
-    displayInstructions(data.meals[0].strInstructions);
-}
-
-function displayMealName(mealName) {
-    const mealHeader = document.getElementById("meal-header");
-    mealHeader.innerHTML = `${mealName}`;
-}
-
-function displayImage(imgSrc) {
-    const imgTag = document.getElementById("meal-img")
-    imgTag.src = `${imgSrc}`;
-}
-
-function displayIngredients(measurements, ingredients) {
-    let bulletHtml = [];
-    for (i = 1; i < ingredients.length; i++){
-        bulletHtml.push(`<li>` + `${measurements[i]}` + ` ${ingredients[i].toLowerCase() }`+ `</li>`)
-    }
-    const list = document.getElementById("meal-list")
-    list.innerHTML = bulletHtml.join("");
-    
-}
-
-function displayInstructions(instructions) {
-    const list = instructions.split(/(?=[A-Z])/);
-    let listHtml = [];
-    for (i = 1; i < list.length; i++){
-        listHtml.push(`<li>` + `${list[i]}` + `</li>`)
-    }
-    const listContainer = document.getElementById("meal-list-instructions");
-    listContainer.innerHTML = listHtml.join("")
-
-}
-
-
-
