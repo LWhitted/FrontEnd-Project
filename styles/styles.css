@@ -27,6 +27,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 85px;
 }
 
 #bio {
@@ -56,4 +57,69 @@ h5 {
     padding-left: 50px;
     padding-right: 50px;
 } 
-  
+
+#description {
+    text-align: center;
+    margin: 20px;
+    font-size: 30px;
+}
+
+.c1 {
+    transform: rotate(-42deg);
+ }
+.c2 {
+    transform: rotate(-35deg);
+ }
+ .c3 {
+    transform: rotate(-30deg);
+}
+ .c4 {
+    transform: rotate(-24deg);
+ }
+ .c5 {
+    transform: rotate(-18deg);
+}
+.c6 {
+    transform: rotate(-12deg);
+}
+.c7 {
+    transform: rotate(-6deg);
+}
+.c8 {
+    transform: rotate(0deg);
+}
+.c9 {
+    transform: rotate(6deg);
+}
+.c10 {
+    transform: rotate(12deg);
+ }
+.c11 {
+     transform: rotate(18deg);
+}
+ .c12 {
+     transform: rotate(24deg);
+ }
+ .c13 {
+    transform: rotate(30deg);
+ }
+ .c14 {
+     transform: rotate(36deg);
+ }
+ .c15 {
+     transform: rotate(42deg);
+ }
+    
+ h1 span {
+    transform-origin: bottom;
+    height: 500px;
+    width: 50px;
+    left: 50;
+    top: 50;
+    position: absolute;
+ }
+
+ #acc {
+    padding-right: 53px;
+ }
+ 
