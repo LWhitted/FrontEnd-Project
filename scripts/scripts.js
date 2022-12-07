@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //MEAL RECIPE FUNCTIONS
 
 async function getMealRecipe() {
-    const keyword = localStorage.getItem('searchTerm');
+    const keyword = encodeURIComponent(localStorage.getItem('searchTerm'));
     
     const response = await fetch(`https://themealdb.com/api/json/v1/1/search.php?s=${keyword}`)
     const data = await response.json()
