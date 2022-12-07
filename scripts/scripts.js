@@ -115,7 +115,7 @@ displayDrinkRecipe(drinkIngredients, measureSteps);
 displayDrinkImages(drinkImage)
 
 document.getElementById("drink-ingredients").style.display=""
-// document.getElementById("drink-button").style.display="none"
+
 
 }
 //WHERE GETCOCKTAIL RECIPE FUNCTION ENDS//
