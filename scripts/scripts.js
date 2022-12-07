@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     getMealRecipe();
-    getCocktailRecipe();
+    document.getElementById("drink-button").addEventListener("click", getCocktailRecipe);
 });
 
 
@@ -114,12 +114,20 @@ async function getCocktailRecipe() {
         }
         }
 
+
+
+
 displayDrinkName(drinkName);
 displayDrinkSteps(alcoholSteps);
 displayDrinkRecipe(drinkIngredients, measureSteps);
 displayDrinkImages(drinkImage)
+
+document.getElementById("drink-ingredients").style.display=""
+
 }
 //WHERE GETCOCKTAIL RECIPE FUNCTION ENDS//
+
+
 
   ///DISPLAYING INGREDIENTS AND MEASUREMENTS FUNCTION///
 function displayDrinkRecipe(drinkIngredients, measureSteps) {
@@ -148,7 +156,9 @@ function displayDrinkSteps(alcoholSteps) {
     let listArray = [];
         for (i=0; i < getInstructions.length; i++) {
             if (getInstructions[i]) {
-        listArray.push (`<li>${getInstructions[i]}</li>`)
+        listArray.push (`
+        
+        <li>${getInstructions[i]}</li>`)
         }} 
     drinkstepsElement.innerHTML = listArray.join("")
 }
