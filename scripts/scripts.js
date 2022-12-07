@@ -8,11 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
 //MEAL RECIPE FUNCTIONS
 
 async function getMealRecipe() {
-    const keyword = localStorage.getItem('searchTerm');
-    console.log(keyword)
+    const keyword = encodeURIComponent(localStorage.getItem('searchTerm'));
     const response = await fetch(`https://themealdb.com/api/json/v1/1/search.php?s=${keyword}`)
     const data = await response.json()
-
     let mealIngredients = [];
     let mealMeasurements = [];
     const dataArray = Object.keys(data.meals[0]);
@@ -30,6 +28,7 @@ async function getMealRecipe() {
     displayImage(data.meals[0].strMealThumb);
     displayIngredients(mealMeasurements, mealIngredients);
     displayInstructions(data.meals[0].strInstructions);
+    displayVideo(data.meals[0].strYoutube)
 }
 
 function displayMealName(mealName) {
@@ -62,7 +61,17 @@ function displayInstructions(instructions) {
     }
     const listContainer = document.getElementById("meal-list-instructions");
     listContainer.innerHTML = listHtml.join("")
+}
 
+//the api gives us a watch link not an embed link so Ill need to 
+//extract the youtube id from the end of the link and change it to 
+//an embed link.
+
+function displayVideo(video){
+    const videoId = video.split("=");
+    const videoLink = `https://www.youtube.com/embed/${videoId[1]}`; 
+    const videoTag = document.getElementById("recipe-video");
+    videoTag.src = videoLink;
 }
 
 
