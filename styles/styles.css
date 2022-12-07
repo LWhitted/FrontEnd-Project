@@ -58,6 +58,11 @@ h5 {
     padding-right: 50px;
 } 
 
+h5:hover {
+ background-color: white;
+ color:black;
+}
+
 #description {
     text-align: center;
     margin: 20px;
