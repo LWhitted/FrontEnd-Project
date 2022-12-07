@@ -11,9 +11,10 @@ body {
 
 h1 {
     font-weight: bolder;
-    font-size: 70px;
+    font-size: 50px;
     text-align: center;
     margin: 30px;
+
 }
 
 #chef-img img {
@@ -115,7 +116,8 @@ h5:hover {
      transform: rotate(42deg);
  }
     
- h1 span {
+ 
+    h1 span {
     transform-origin: bottom;
     height: 500px;
     width: 50px;
@@ -124,7 +126,17 @@ h5:hover {
     position: absolute;
  }
 
- #acc {
-    padding-right: 53px;
+
+ @media only screen and (max-width: 600px) {
+    h1 span {
+        height: 35%;
+    }
  }
+
+    #acc {
+    padding-right: 53px;
+  
+    
+ }
+ 
  
