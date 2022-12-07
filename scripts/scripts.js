@@ -12,7 +12,6 @@ async function getMealRecipe() {
     
     const response = await fetch(`https://themealdb.com/api/json/v1/1/search.php?s=${keyword}`)
     const data = await response.json()
-    console.log(data.meals[0].strYoutube)
     let mealIngredients = [];
     let mealMeasurements = [];
     const dataArray = Object.keys(data.meals[0]);
@@ -67,11 +66,12 @@ function displayInstructions(instructions) {
 //extract the youtube id from the end of the link and change it to 
 //an embed link.
 
-// function displayVideo(video){
-//     console.log(video)
-//     const videoTag = document.getElementById("recipe-video");
-//     videoTag.src = `${video}`;
-// }
+function displayVideo(video){
+    const videoId = video.split("=");
+    const videoLink = `https://www.youtube.com/embed/${videoId[1]}`; 
+    const videoTag = document.getElementById("recipe-video");
+    videoTag.src = videoLink;
+}
 
 
 async function getCocktailRecipe() {
