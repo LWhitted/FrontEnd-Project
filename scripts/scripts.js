@@ -125,6 +125,7 @@ displayDrinkImages(drinkImage)
 
 document.getElementById("drink-ingredients").style.display=""
 
+
 }
 //WHERE GETCOCKTAIL RECIPE FUNCTION ENDS//
 

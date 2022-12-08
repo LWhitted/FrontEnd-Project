@@ -9,3 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     
 });
+
+const carouselImg = document.getElementById("pop-meal")
+carouselImg.addEventListener("click", function (e) {
+    if (e.target.innerText) {
+        const term = e.target.innerText
+        localStorage.setItem('searchTerm', term)
+        window.open("recipe.html")
+    }
+})
